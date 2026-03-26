@@ -1,38 +1,191 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>BabylonJS Viewer - Basic usage</title>
-        <style>
-			.viewerContainer {
-                width: 400px;
-                height: 500px;				
-				image-rendering: pixelated; /* to prevent blury when zoomed out */
-			}
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Models | Say My Name</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
 
-        </style>
-		<script src="https://cdn.babylonjs.com/viewer/babylon.viewer.js"></script>
-	<script>
-		function loadit(modelUrl) {
-			if(modelUrl) {
-				let viewer = BabylonViewer.viewerManager.getViewerById('viewerID');
-				viewer.loadModel(modelUrl)
-			}
-		}
-	</script>
+    :root{
+      --bg:#0b1220;
+      --bg2:#121b33;
+      --text:#fff;
+      --muted:#aab4c7;
+    }
+
+    body{
+      font-family:"Segoe UI",Arial;
+      background:linear-gradient(135deg,var(--bg),var(--bg2));
+      color:var(--text);
+    }
+
+    .container{width:min(1200px,90%);margin:auto}
+
+    nav{
+      padding:20px 0;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .nav-links a{
+      margin-left:20px;
+      color:var(--muted);
+    }
+
+    .nav-links a.active,
+    .nav-links a:hover{color:#fff}
+
+    h1{margin:30px 0 20px;font-size:2.2rem}
+
+    /* ===== 卡片展示（像 Sketchfab） ===== */
+    .model-list{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:22px;
+      padding-bottom:40px;
+    }
+
+    .model-card{
+      display:block;
+      border-radius:14px;
+      overflow:hidden;
+      background:#111;
+      cursor:pointer;
+      transition:.25s;
+    }
+
+    .model-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 15px 30px rgba(0,0,0,.4);
+    }
+
+    .thumb{
+      width:100%;
+      height:180px;
+      background-size:cover;
+      background-position:center;
+    }
+
+    .model-info{
+      background:#fff;
+      color:#111;
+      padding:10px 14px;
+    }
+
+    .model-info h3{
+      font-size:.9rem;
+      margin-bottom:4px;
+    }
+
+    .meta{
+      font-size:.8rem;
+      color:#666;
+    }
+
+    footer{
+      text-align:center;
+      color:var(--muted);
+      padding:30px 0;
+    }
+
+    @media(max-width:1000px){
+      .model-list{grid-template-columns:repeat(2,1fr)}
+    }
+
+    @media(max-width:600px){
+      .model-list{grid-template-columns:1fr}
+    }
+  </style>
 </head>
 <body>
-<select onchange="loadit(this.value)">
-	<option value="">select model</option>
-	<option value="./model/boneworks_-_omni_worker.glb">Cleaner</option>
-	<option value="./model/gumshoe_male.glb">Agent</option>
-	<option value="./model/t-60_power_armor_-_fortnite_skin.glb">Warrior</option>
-</select>
-<div class='viewerContainer'>
-	<babylon id="viewerID"></babylon>
-</div>
-</body>
 
+<nav class="container">
+  <div>SayMyName</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="我的作品.html">Works</a>
+    <a href="1.babylonViewer Select.html" class="active">Models</a>
+    <a href="2.babylonViewer Navbar.html">VR</a>
+  </div>
+</nav>
+
+<div class="container">
+  <h1>Models</h1>
+
+  <div class="model-list">
+
+    <a class="model-card" href="0.babylonViewer Basic.html">
+      <div class="thumb" style="background-image:url('https://picsum.photos/400/300?1')"></div>
+      <div class="model-info">
+        <h3>Hero Character</h3>
+        <div class="meta">👁 150k ⭐ 3k</div>
+      </div>
+    </a>
+
+    <a class="model-card" href="0.babylonViewer Basic.html">
+      <div class="thumb" style="background-image:url('https://picsum.photos/400/300?2')"></div>
+      <div class="model-info">
+        <h3>Robot Unit</h3>
+        <div class="meta">👁 120k ⭐ 2.5k</div>
+      </div>
+    </a>
+
+    <a class="model-card" href="0.babylonViewer Basic.html">
+      <div class="thumb" style="background-image:url('https://picsum.photos/400/300?3')"></div>
+      <div class="model-info">
+        <h3>Fantasy Creature</h3>
+        <div class="meta">👁 98k ⭐ 2k</div>
+      </div>
+    </a>
+
+    <a class="model-card" href="0.babylonViewer Basic.html">
+      <div class="thumb" style="background-image:url('https://picsum.photos/400/300?4')"></div>
+      <div class="model-info">
+        <h3>Cute Pet</h3>
+        <div class="meta">👁 76k ⭐ 1.8k</div>
+      </div>
+    </a>
+
+    <a class="model-card" href="0.babylonViewer Basic.html">
+      <div class="thumb" style="background-image:url('https://picsum.photos/400/300?5')"></div>
+      <div class="model-info">
+        <h3>Speed Bike</h3>
+        <div class="meta">👁 65k ⭐ 1.5k</div>
+      </div>
+    </a>
+
+    <a class="model-card" href="0.babylonViewer Basic.html">
+      <div class="thumb" style="background-image:url('https://picsum.photos/400/300?6')"></div>
+      <div class="model-info">
+        <h3>Hover Car</h3>
+        <div class="meta">👁 80k ⭐ 2.1k</div>
+      </div>
+    </a>
+
+    <a class="model-card" href="0.babylonViewer Basic.html">
+      <div class="thumb" style="background-image:url('https://picsum.photos/400/300?7')"></div>
+      <div class="model-info">
+        <h3>Magic Sword</h3>
+        <div class="meta">👁 40k ⭐ 900</div>
+      </div>
+    </a>
+
+    <a class="model-card" href="0.babylonViewer Basic.html">
+      <div class="thumb" style="background-image:url('https://picsum.photos/400/300?8')"></div>
+      <div class="model-info">
+        <h3>Display Chair</h3>
+        <div class="meta">👁 25k ⭐ 600</div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<footer>
+  © 2026 SayMyName Models
+</footer>
+
+</body>
 </html>
