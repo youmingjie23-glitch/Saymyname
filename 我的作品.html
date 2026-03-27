@@ -2,217 +2,159 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Works | Say My Name</title>
+
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *{margin:0;padding:0;box-sizing:border-box}
 
-    :root {
-      --bg: #0b1220;
-      --bg2: #121b33;
-      --text: #ffffff;
-      --muted: #aab4c7;
+    :root{
+      --bg:#0b1220;
+      --bg2:#121b33;
+      --text:#fff;
+      --muted:#aab4c7;
     }
 
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: linear-gradient(135deg, var(--bg), var(--bg2));
-      color: var(--text);
+    body{
+      font-family:"Segoe UI",Arial;
+      background:linear-gradient(135deg,var(--bg),var(--bg2));
+      color:var(--text);
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
+    .container{width:min(1200px,90%);margin:auto}
+
+    nav{
+      padding:20px 0;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
     }
 
-    .container {
-      width: min(1200px, 90%);
-      margin: auto;
-    }
-
-    nav {
-      padding: 20px 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .logo {
-      font-size: 1.2rem;
-      font-weight: 700;
-    }
-
-    .nav-links a {
-      margin-left: 20px;
-      color: var(--muted);
-      transition: 0.2s;
+    .nav-links a{
+      margin-left:20px;
+      color:var(--muted);
     }
 
     .nav-links a.active,
-    .nav-links a:hover {
-      color: #ffffff;
+    .nav-links a:hover{color:#fff}
+
+    h1{margin:30px 0 20px;font-size:2.2rem}
+
+    .works-list{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:22px;
+      padding-bottom:40px;
     }
 
-    .page-head {
-      padding: 24px 0 18px;
+    .work-card{
+      border-radius:14px;
+      overflow:hidden;
+      background:#111;
+      transition:.25s;
     }
 
-    .page-head h1 {
-      font-size: 2.2rem;
-      margin-bottom: 10px;
+    .work-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 15px 30px rgba(0,0,0,.4);
     }
 
-    .page-head p {
-      color: var(--muted);
-      max-width: 720px;
-      line-height: 1.7;
+    .viewer-box iframe{
+      width:100%;
+      height:180px;
+      border:none;
+      pointer-events:none;
     }
 
-    .works-list {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 22px;
-      padding-bottom: 42px;
+    .work-card:hover iframe{
+      pointer-events:auto;
     }
 
-    .work-card {
-      display: block;
-      border-radius: 14px;
-      overflow: hidden;
-      background: #111;
-      transition: 0.25s;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+    .work-info{
+      background:#fff;
+      color:#111;
+      padding:10px 14px;
     }
 
-    .work-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 32px rgba(0,0,0,0.38);
+    .work-info h3{
+      font-size:.9rem;
+      margin-bottom:4px;
     }
 
-    .viewer-box {
-      position: relative;
-      background: #000;
+    .meta{
+      font-size:.8rem;
+      color:#666;
     }
 
-    .viewer-box iframe {
-      width: 100%;
-      height: 180px;
-      border: none;
-      display: block;
-      pointer-events: none;
+    footer{
+      text-align:center;
+      color:var(--muted);
+      padding:30px 0;
     }
 
-    .work-card:hover .viewer-box iframe {
-      pointer-events: auto;
+    @media(max-width:1000px){
+      .works-list{grid-template-columns:repeat(2,1fr)}
     }
 
-    .open-tip {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-      background: rgba(0,0,0,0.65);
-      color: #fff;
-      font-size: 0.75rem;
-      padding: 6px 10px;
-      border-radius: 999px;
-      opacity: 0;
-      transition: 0.2s;
-    }
-
-    .work-card:hover .open-tip {
-      opacity: 1;
-    }
-
-    .work-info {
-      background: #ffffff;
-      color: #111111;
-      padding: 10px 14px;
-    }
-
-    .work-info h3 {
-      font-size: 0.92rem;
-      margin-bottom: 4px;
-    }
-
-    .meta {
-      font-size: 0.8rem;
-      color: #666;
-    }
-
-    footer {
-      text-align: center;
-      color: var(--muted);
-      padding: 28px 0 34px;
-    }
-
-    @media (max-width: 1000px) {
-      .works-list {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 640px) {
-      nav {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .works-list {
-        grid-template-columns: 1fr;
-      }
-
-      .nav-links a {
-        margin-left: 0;
-        margin-right: 14px;
-      }
+    @media(max-width:600px){
+      .works-list{grid-template-columns:1fr}
     }
   </style>
 </head>
+
 <body>
-  <nav class="container">
-    <div class="logo">SayMyName</div>
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="我的作品.html" class="active">Works</a>
-      <a href="1.babylonViewer Select.html">Models</a>
-      <a href="2.babylonViewer Navbar.html">VR</a>
+
+<nav class="container">
+  <div>SayMyName</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="我的作品.html" class="active">Works</a>
+    <a href="1.babylonViewer Select.html">Models</a>
+    <a href="2.babylonViewer Navbar.html">VR</a>
+  </div>
+</nav>
+
+<div class="container">
+  <h1>Works</h1>
+
+  <div class="works-list">
+
+    <!-- Panda -->
+    <div class="work-card">
+      <div class="viewer-box">
+        <iframe 
+          src="https://sketchfab.com/models/25d85c17e75546049deae047bdb7a4f6/embed"
+          allow="autoplay; fullscreen; xr-spatial-tracking"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div class="work-info">
+        <h3>Cute Panda</h3>
+        <div class="meta">Sketchfab Animation</div>
+      </div>
     </div>
-  </nav>
 
-  <main class="container">
-    <section class="page-head">
-      <h1>Works</h1>
-      <p>
-        This page is used to showcase model actions and interactive Sketchfab embeds.
-        Click a card to open the full Sketchfab page.
-      </p>
-    </section>
+    <!-- Dancing -->
+    <div class="work-card">
+      <div class="viewer-box">
+        <iframe 
+          src="https://sketchfab.com/models/dacc5dc0648f41b18ff8170b618a7b8e/embed"
+          allow="autoplay; fullscreen; xr-spatial-tracking"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div class="work-info">
+        <h3>Dancing</h3>
+        <div class="meta">Sketchfab Animation</div>
+      </div>
+    </div>
 
-    <section class="works-list">
-      <a class="work-card" href="https://sketchfab.com/3d-models/cute-panda-25d85c17e75546049deae047bdb7a4f6" target="_blank" rel="noopener noreferrer">
-        <div class="viewer-box">
-          <iframe
-            title="Cute Panda"
-            allowfullscreen
-            mozallowfullscreen="true"
-            webkitallowfullscreen="true"
-            allow="autoplay; fullscreen; xr-spatial-tracking"
-            src="https://sketchfab.com/models/25d85c17e75546049deae047bdb7a4f6/embed">
-          </iframe>
-          <div class="open-tip">Open in Sketchfab</div>
-        </div>
-        <div class="work-info">
-          <h3>Cute Panda</h3>
-          <div class="meta">Sketchfab embed</div>
-        </div>
-      </a>
+  </div>
+</div>
 
-    </section>
-  </main>
+<footer>
+  © 2026 SayMyName Works
+</footer>
 
-  <footer>
-    © 2026 SayMyName Works
-  </footer>
 </body>
 </html>
