@@ -1,3 +1,250 @@
-Test body 1
-<a href="https://skfb.ly/pHQzP">share with link </a>
-<div class="sketchfab-embed-wrapper"> <iframe title="Cute Panda" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/25d85c17e75546049deae047bdb7a4f6/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/cute-panda-25d85c17e75546049deae047bdb7a4f6?utm_medium=embed&utm_campaign=share-popup&utm_content=25d85c17e75546049deae047bdb7a4f6" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Cute Panda </a> by <a href="https://sketchfab.com/Superidoit?utm_medium=embed&utm_campaign=share-popup&utm_content=25d85c17e75546049deae047bdb7a4f6" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Superidoit </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=25d85c17e75546049deae047bdb7a4f6" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Works | Say My Name</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0b1220;
+      --bg2: #121b33;
+      --text: #ffffff;
+      --muted: #aab4c7;
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, var(--bg), var(--bg2));
+      color: var(--text);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1200px, 90%);
+      margin: auto;
+    }
+
+    nav {
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .nav-links a {
+      margin-left: 20px;
+      color: var(--muted);
+      transition: 0.2s;
+    }
+
+    .nav-links a.active,
+    .nav-links a:hover {
+      color: #ffffff;
+    }
+
+    .page-head {
+      padding: 24px 0 18px;
+    }
+
+    .page-head h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    .page-head p {
+      color: var(--muted);
+      max-width: 720px;
+      line-height: 1.7;
+    }
+
+    .works-list {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      padding-bottom: 42px;
+    }
+
+    .work-card {
+      display: block;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #111;
+      transition: 0.25s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+    }
+
+    .work-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.38);
+    }
+
+    .viewer-box {
+      position: relative;
+      background: #000;
+    }
+
+    .viewer-box iframe {
+      width: 100%;
+      height: 180px;
+      border: none;
+      display: block;
+      pointer-events: none;
+    }
+
+    .work-card:hover .viewer-box iframe {
+      pointer-events: auto;
+    }
+
+    .open-tip {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      background: rgba(0,0,0,0.65);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 6px 10px;
+      border-radius: 999px;
+      opacity: 0;
+      transition: 0.2s;
+    }
+
+    .work-card:hover .open-tip {
+      opacity: 1;
+    }
+
+    .work-info {
+      background: #ffffff;
+      color: #111111;
+      padding: 10px 14px;
+    }
+
+    .work-info h3 {
+      font-size: 0.92rem;
+      margin-bottom: 4px;
+    }
+
+    .meta {
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 28px 0 34px;
+    }
+
+    @media (max-width: 1000px) {
+      .works-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .works-list {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links a {
+        margin-left: 0;
+        margin-right: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="container">
+    <div class="logo">SayMyName</div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="我的作品.html" class="active">Works</a>
+      <a href="1.babylonViewer Select.html">Models</a>
+      <a href="2.babylonViewer Navbar.html">VR</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="page-head">
+      <h1>Works</h1>
+      <p>
+        This page is used to showcase model actions and interactive Sketchfab embeds.
+        Click a card to open the full Sketchfab page.
+      </p>
+    </section>
+
+    <section class="works-list">
+      <a class="work-card" href="https://sketchfab.com/3d-models/cute-panda-25d85c17e75546049deae047bdb7a4f6" target="_blank" rel="noopener noreferrer">
+        <div class="viewer-box">
+          <iframe
+            title="Cute Panda"
+            allowfullscreen
+            mozallowfullscreen="true"
+            webkitallowfullscreen="true"
+            allow="autoplay; fullscreen; xr-spatial-tracking"
+            src="https://sketchfab.com/models/25d85c17e75546049deae047bdb7a4f6/embed">
+          </iframe>
+          <div class="open-tip">Open in Sketchfab</div>
+        </div>
+        <div class="work-info">
+          <h3>Cute Panda</h3>
+          <div class="meta">Sketchfab embed</div>
+        </div>
+      </a>
+
+      <a class="work-card" href="#">
+        <div class="viewer-box">
+          <iframe title="Coming Soon" src="about:blank"></iframe>
+          <div class="open-tip">Replace with your link</div>
+        </div>
+        <div class="work-info">
+          <h3>Next Work</h3>
+          <div class="meta">Add your second Sketchfab model</div>
+        </div>
+      </a>
+
+      <a class="work-card" href="#">
+        <div class="viewer-box">
+          <iframe title="Coming Soon" src="about:blank"></iframe>
+          <div class="open-tip">Replace with your link</div>
+        </div>
+        <div class="work-info">
+          <h3>Next Work</h3>
+          <div class="meta">Add your third Sketchfab model</div>
+        </div>
+      </a>
+
+      <a class="work-card" href="#">
+        <div class="viewer-box">
+          <iframe title="Coming Soon" src="about:blank"></iframe>
+          <div class="open-tip">Replace with your link</div>
+        </div>
+        <div class="work-info">
+          <h3>Next Work</h3>
+          <div class="meta">Add your fourth Sketchfab model</div>
+        </div>
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 SayMyName Works
+  </footer>
+</body>
+</html>
