@@ -8,213 +8,159 @@
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *{margin:0;padding:0;box-sizing:border-box}
 
-    :root {
-      --bg: #0b1220;
-      --bg2: #121b33;
-      --text: #ffffff;
-      --muted: #aab4c7;
+    :root{
+      --bg:#0b1220;
+      --bg2:#121b33;
+      --text:#fff;
+      --muted:#aab4c7;
     }
 
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: linear-gradient(135deg, var(--bg), var(--bg2));
-      color: var(--text);
+    body{
+      font-family:"Segoe UI",Arial;
+      background:linear-gradient(135deg,var(--bg),var(--bg2));
+      color:var(--text);
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
+    .container{width:min(1200px,90%);margin:auto}
+
+    nav{
+      padding:20px 0;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
     }
 
-    .container {
-      width: min(1200px, 90%);
-      margin: auto;
+    .nav-links a{margin-left:20px;color:var(--muted)}
+    .nav-links a.active,.nav-links a:hover{color:#fff}
+
+    h1{margin:30px 0 20px;font-size:2.2rem}
+
+    .models-list{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:22px;
+      padding-bottom:40px;
     }
 
-    nav {
-      padding: 20px 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
+    .model-card{
+      border-radius:14px;
+      overflow:hidden;
+      background:#111;
+      transition:.25s;
     }
 
-    .logo {
-      font-size: 1.2rem;
-      font-weight: 700;
+    .model-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 15px 30px rgba(0,0,0,.4);
     }
 
-    .nav-links a {
-      margin-left: 20px;
-      color: var(--muted);
-      transition: 0.2s;
+    model-viewer{
+      width:100%;
+      height:220px;
+      background:#e9edf3;
     }
 
-    .nav-links a.active,
-    .nav-links a:hover {
-      color: #ffffff;
+    .model-info{
+      background:#fff;
+      color:#111;
+      padding:10px 14px;
     }
 
-    .page-head {
-      padding: 24px 0 18px;
+    .model-info h3{font-size:.9rem;margin-bottom:6px}
+
+    .meta{font-size:.8rem;color:#666}
+
+    .btn{
+      margin-top:8px;
+      padding:6px 10px;
+      font-size:.75rem;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      background:#111;
+      color:#fff;
     }
 
-    .page-head h1 {
-      font-size: 2.2rem;
-      margin-bottom: 10px;
-    }
+    .btn:hover{background:#333}
 
-    .page-head p {
-      color: var(--muted);
-      max-width: 760px;
-      line-height: 1.7;
-    }
+    footer{text-align:center;color:var(--muted);padding:30px 0}
 
-    .models-list {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 22px;
-      padding-bottom: 42px;
-    }
-
-    .model-card {
-      border-radius: 14px;
-      overflow: hidden;
-      background: #111;
-      transition: 0.25s;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.18);
-    }
-
-    .model-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 32px rgba(0,0,0,0.38);
-    }
-
-    .viewer-box {
-      background: #e9edf3;
-      height: 220px;
-    }
-
-    model-viewer {
-      width: 100%;
-      height: 220px;
-      display: block;
-      background: #e9edf3;
-    }
-
-    .model-info {
-      background: #ffffff;
-      color: #111111;
-      padding: 10px 14px;
-    }
-
-    .model-info h3 {
-      font-size: 0.92rem;
-      margin-bottom: 4px;
-    }
-
-    .meta {
-      font-size: 0.8rem;
-      color: #666;
-      word-break: break-all;
-    }
-
-    footer {
-      text-align: center;
-      color: var(--muted);
-      padding: 28px 0 34px;
-    }
-
-    @media (max-width: 1000px) {
-      .models-list {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 640px) {
-      nav {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .models-list {
-        grid-template-columns: 1fr;
-      }
-
-      .nav-links a {
-        margin-left: 0;
-        margin-right: 14px;
-      }
-    }
+    @media(max-width:1000px){.models-list{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:600px){.models-list{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-  <nav class="container">
-    <div class="logo">SayMyName</div>
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="我的作品.html">Works</a>
-      <a href="1.babylonViewer Select.html" class="active">Models</a>
-      <a href="2.babylonViewer Navbar.html">VR</a>
+
+<nav class="container">
+  <div>SayMyName</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="我的作品.html">Works</a>
+    <a href="1.babylonViewer Select.html" class="active">Models</a>
+    <a href="2.babylonViewer Navbar.html">VR</a>
+  </div>
+</nav>
+
+<div class="container">
+  <h1>Models</h1>
+
+  <div class="models-list">
+
+    <div class="model-card">
+      <model-viewer id="m1" src="model/---cameraman---.glb" camera-controls auto-rotate></model-viewer>
+      <div class="model-info">
+        <h3>Cameraman</h3>
+        <div class="meta">model/---cameraman---.glb</div>
+        <button class="btn" onclick="goFull('m1')">Fullscreen</button>
+      </div>
     </div>
-  </nav>
 
-  <main class="container">
-    <section class="page-head">
-      <h1>Models</h1>
-      <p>
-        This page directly displays the GLB models stored in your project folder.
-        No thumbnails are needed. You can rotate, zoom, and inspect each model here.
-      </p>
-    </section>
-
-    <section class="models-list">
-      <div class="model-card">
-        <div class="viewer-box">
-          <model-viewer src="model/---cameraman---.glb" camera-controls auto-rotate></model-viewer>
-        </div>
-        <div class="model-info">
-          <h3>Cameraman</h3>
-          <div class="meta">model/---cameraman---.glb</div>
-        </div>
+    <div class="model-card">
+      <model-viewer id="m2" src="model/boneworks_-_omni_worker.glb" camera-controls auto-rotate></model-viewer>
+      <div class="model-info">
+        <h3>Omni Worker</h3>
+        <div class="meta">boneworks</div>
+        <button class="btn" onclick="goFull('m2')">Fullscreen</button>
       </div>
+    </div>
 
-      <div class="model-card">
-        <div class="viewer-box">
-          <model-viewer src="model/boneworks_-_omni_worker.glb" camera-controls auto-rotate></model-viewer>
-        </div>
-        <div class="model-info">
-          <h3>Omni Worker</h3>
-          <div class="meta">model/boneworks_-_omni_worker.glb</div>
-        </div>
+    <div class="model-card">
+      <model-viewer id="m3" src="model/gumshoe_male.glb" camera-controls auto-rotate></model-viewer>
+      <div class="model-info">
+        <h3>Gumshoe Male</h3>
+        <div class="meta">character</div>
+        <button class="btn" onclick="goFull('m3')">Fullscreen</button>
       </div>
+    </div>
 
-      <div class="model-card">
-        <div class="viewer-box">
-          <model-viewer src="model/gumshoe_male.glb" camera-controls auto-rotate></model-viewer>
-        </div>
-        <div class="model-info">
-          <h3>Gumshoe Male</h3>
-          <div class="meta">model/gumshoe_male.glb</div>
-        </div>
+    <div class="model-card">
+      <model-viewer id="m4" src="model/t-60_power_armor_-_fortnite_skin.glb" camera-controls auto-rotate></model-viewer>
+      <div class="model-info">
+        <h3>Fortnite Armor</h3>
+        <div class="meta">game model</div>
+        <button class="btn" onclick="goFull('m4')">Fullscreen</button>
       </div>
+    </div>
 
-      <div class="model-card">
-        <div class="viewer-box">
-          <model-viewer src="model/t-60_power_armor_-_fortnite_skin.glb" camera-controls auto-rotate></model-viewer>
-        </div>
-        <div class="model-info">
-          <h3>Fortnite Power Armor</h3>
-          <div class="meta">model/t-60_power_armor_-_fortnite_skin.glb</div>
-        </div>
-      </div>
-    </section>
-  </main>
+  </div>
+</div>
 
-  <footer>
-    © 2026 SayMyName Models
-  </footer>
+<footer>
+  © 2026 SayMyName Models
+</footer>
+
+<script>
+function goFull(id){
+  const el = document.getElementById(id);
+  if(el.requestFullscreen){
+    el.requestFullscreen();
+  } else if(el.webkitRequestFullscreen){
+    el.webkitRequestFullscreen();
+  }
+}
+</script>
+
 </body>
 </html>
