@@ -1,43 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>BabylonJS Viewer - Basic usage</title>
-        <style>
-			.viewerContainer {
-                width: 400px;
-                height: 500px;				
-				image-rendering: pixelated; /* to prevent blury when zoomed out */
-			}
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VR | Say My Name</title>
 
-        </style>
-		<script src="https://cdn.babylonjs.com/viewer/babylon.viewer.js"></script>
-	<script>
-		function loadit(modelUrl) {
-			if(modelUrl) {
-				let viewer = BabylonViewer.viewerManager.getViewerById('viewerID');
-				let temp = viewer.templateManager.getTemplate('navBar');
-				let param= temp._configuration;
-				param.params.hideVr=false;
-                param.params.disableOnFullscreen=true;
-				temp.updateParams(param);
-				viewer.loadModel(modelUrl)
-			}
-		}
-	</script>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+
+    :root{
+      --bg:#0b1220;
+      --bg2:#121b33;
+      --text:#fff;
+      --muted:#aab4c7;
+    }
+
+    body{
+      font-family:"Segoe UI",Arial;
+      background:linear-gradient(135deg,var(--bg),var(--bg2));
+      color:var(--text);
+    }
+
+    .container{width:min(1200px,90%);margin:auto}
+
+    nav{
+      padding:20px 0;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .nav-links a{margin-left:20px;color:var(--muted)}
+    .nav-links a.active,.nav-links a:hover{color:#fff}
+
+    h1{margin:30px 0 20px;font-size:2.2rem}
+
+    .models-list{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:22px;
+      padding-bottom:40px;
+    }
+
+    .model-card{
+      border-radius:14px;
+      overflow:hidden;
+      background:#111;
+      transition:.25s;
+    }
+
+    .model-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 15px 30px rgba(0,0,0,.4);
+    }
+
+    model-viewer{
+      width:100%;
+      height:220px;
+      background:#e9edf3;
+    }
+
+    .model-info{
+      background:#fff;
+      color:#111;
+      padding:10px 14px;
+    }
+
+    .model-info h3{font-size:.9rem;margin-bottom:6px}
+
+    .btn{
+      margin-top:8px;
+      padding:6px 10px;
+      font-size:.75rem;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      background:#111;
+      color:#fff;
+    }
+
+    .btn:hover{background:#333}
+
+    footer{text-align:center;color:var(--muted);padding:30px 0}
+
+    @media(max-width:1000px){
+      .models-list{grid-template-columns:repeat(2,1fr)}
+    }
+
+    @media(max-width:600px){
+      .models-list{grid-template-columns:1fr}
+    }
+  </style>
 </head>
-<body>
-<select onchange="loadit(this.value)">
-	<option value="">select model</option>
-	<option value="./model/boneworks_-_omni_worker.glb">Cleaner</option>
-	<option value="./model/gumshoe_male.glb">Agent</option>
-	<option value="./model/t-60_power_armor_-_fortnite_skin.glb">Warrior</option>
-</select>
-<div class='viewerContainer'>
-	<babylon id="viewerID"><vr></vr></babylon>
-</div>
-</body>
 
+<body>
+
+<nav class="container">
+  <div>SayMyName</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="我的作品.html">Works</a>
+    <a href="1.babylonViewer Select.html">Models</a>
+    <a href="2.babylonViewer Navbar.html" class="active">VR</a>
+  </div>
+</nav>
+
+<div class="container">
+  <h1>VR Models</h1>
+
+  <div class="models-list">
+
+    <div class="model-card">
+      <model-viewer 
+        src="model/bff67837-a37a-4fdc-a60d-454eb943cd66.glb"
+        camera-controls 
+        auto-rotate
+        ar
+        ar-modes="webxr scene-viewer quick-look">
+      </model-viewer>
+
+      <div class="model-info">
+        <h3>牢大</h3>
+        <button class="btn" onclick="enterVR(this)">Enter VR</button>
+      </div>
+    </div>
+
+    <div class="model-card">
+      <model-viewer 
+        src="model/武東星.glb"
+        camera-controls 
+        auto-rotate
+        ar
+        ar-modes="webxr scene-viewer quick-look">
+      </model-viewer>
+
+      <div class="model-info">
+        <h3>武東星</h3>
+        <button class="btn" onclick="enterVR(this)">Enter VR</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  © 2026 SayMyName VR
+</footer>
+
+<script>
+function enterVR(btn){
+  const viewer = btn.closest('.model-card').querySelector('model-viewer');
+
+  if (viewer.canActivateAR) {
+    viewer.activateAR();
+  } else {
+    alert("你的裝置不支援 VR / AR");
+  }
+}
+</script>
+
+</body>
 </html>
