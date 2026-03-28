@@ -5,161 +5,214 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VR | Say My Name</title>
 
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script src="https://cdn.babylonjs.com/viewer/babylon.viewer.js"></script>
 
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    :root{
-      --bg:#0b1220;
-      --bg2:#121b33;
-      --text:#fff;
-      --muted:#aab4c7;
+    :root {
+      --bg: #0b1220;
+      --bg2: #121b33;
+      --text: #ffffff;
+      --muted: #aab4c7;
     }
 
-    body{
-      font-family:"Segoe UI",Arial;
-      background:linear-gradient(135deg,var(--bg),var(--bg2));
-      color:var(--text);
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, var(--bg), var(--bg2));
+      color: var(--text);
+      min-height: 100vh;
     }
 
-    .container{width:min(1200px,90%);margin:auto}
-
-    nav{
-      padding:20px 0;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
+    .container {
+      width: min(1200px, 90%);
+      margin: auto;
     }
 
-    .nav-links a{margin-left:20px;color:var(--muted)}
-    .nav-links a.active,.nav-links a:hover{color:#fff}
-
-    h1{margin:30px 0 20px;font-size:2.2rem}
-
-    .models-list{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:22px;
-      padding-bottom:40px;
+    nav {
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
     }
 
-    .model-card{
-      border-radius:14px;
-      overflow:hidden;
-      background:#111;
-      transition:.25s;
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
     }
 
-    .model-card:hover{
-      transform:translateY(-6px);
-      box-shadow:0 15px 30px rgba(0,0,0,.4);
+    .nav-links a {
+      margin-left: 20px;
+      color: var(--muted);
+      text-decoration: none;
     }
 
-    model-viewer{
-      width:100%;
-      height:220px;
-      background:#e9edf3;
+    .nav-links a.active,
+    .nav-links a:hover {
+      color: #fff;
     }
 
-    .model-info{
-      background:#fff;
-      color:#111;
-      padding:10px 14px;
+    .page-head {
+      padding: 24px 0 18px;
     }
 
-    .model-info h3{font-size:.9rem;margin-bottom:6px}
-
-    .btn{
-      margin-top:8px;
-      padding:6px 10px;
-      font-size:.75rem;
-      border:none;
-      border-radius:8px;
-      cursor:pointer;
-      background:#111;
-      color:#fff;
+    .page-head h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
     }
 
-    .btn:hover{background:#333}
-
-    footer{text-align:center;color:var(--muted);padding:30px 0}
-
-    @media(max-width:1000px){
-      .models-list{grid-template-columns:repeat(2,1fr)}
+    .page-head p {
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 760px;
     }
 
-    @media(max-width:600px){
-      .models-list{grid-template-columns:1fr}
+    .toolbar {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .toolbar label {
+      font-weight: 600;
+    }
+
+    select {
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      min-width: 220px;
+      font-size: 0.95rem;
+    }
+
+    .viewer-wrap {
+      background: rgba(255,255,255,0.06);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.22);
+      margin-bottom: 36px;
+    }
+
+    .viewerContainer {
+      width: 100%;
+      height: 72vh;
+      min-height: 520px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #111;
+      image-rendering: pixelated;
+    }
+
+    babylon {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .tips {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 28px 0 34px;
+    }
+
+    @media (max-width: 640px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links a {
+        margin-left: 0;
+        margin-right: 14px;
+      }
+
+      .viewerContainer {
+        height: 60vh;
+        min-height: 420px;
+      }
     }
   </style>
+
+  <script>
+    function loadit(modelUrl) {
+      if (modelUrl) {
+        const viewer = BabylonViewer.viewerManager.getViewerById('viewerID');
+        const temp = viewer.templateManager.getTemplate('navBar');
+        const param = temp._configuration;
+
+        param.params.hideVr = false;
+        param.params.disableOnFullscreen = true;
+
+        temp.updateParams(param);
+        viewer.loadModel(modelUrl);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadit('./model/---cameraman---.glb');
+      const select = document.getElementById('modelSelect');
+      if (select) select.value = './model/---cameraman---.glb';
+    });
+  </script>
 </head>
-
 <body>
+  <nav class="container">
+    <div class="logo">SayMyName</div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="我的作品.html">Works</a>
+      <a href="1.babylonViewer Select.html">Models</a>
+      <a href="2.babylonViewer Navbar.html" class="active">VR</a>
+    </div>
+  </nav>
 
-<nav class="container">
-  <div>SayMyName</div>
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="我的作品.html">Works</a>
-    <a href="1.babylonViewer Select.html">Models</a>
-    <a href="2.babylonViewer Navbar.html" class="active">VR</a>
-  </div>
-</nav>
+  <main class="container">
+    <section class="page-head">
+      <h1>VR Viewer</h1>
+      <p>
+        This page keeps your original Babylon Viewer VR function.
+        Select a model below, then use the built-in viewer controls to enter VR if your device and browser support it.
+      </p>
+    </section>
 
-<div class="container">
-  <h1>VR Models</h1>
-
-  <div class="models-list">
-
-    <div class="model-card">
-      <model-viewer 
-        src="model/bff67837-a37a-4fdc-a60d-454eb943cd66.glb"
-        camera-controls 
-        auto-rotate
-        ar
-        ar-modes="webxr scene-viewer quick-look">
-      </model-viewer>
-
-      <div class="model-info">
-        <h3>牢大</h3>
-        <button class="btn" onclick="enterVR(this)">Enter VR</button>
-      </div>
+    <div class="toolbar">
+      <label for="modelSelect">Select Model:</label>
+      <select id="modelSelect" onchange="loadit(this.value)">
+        <option value="">select model</option>
+        <option value="./model/---cameraman---.glb">Cameraman</option>
+        <option value="./model/boneworks_-_omni_worker.glb">Omni Worker</option>
+        <option value="./model/gumshoe_male.glb">Gumshoe Male</option>
+        <option value="./model/t-60_power_armor_-_fortnite_skin.glb">Fortnite Power Armor</option>
+      </select>
     </div>
 
-    <div class="model-card">
-      <model-viewer 
-        src="model/武東星.glb"
-        camera-controls 
-        auto-rotate
-        ar
-        ar-modes="webxr scene-viewer quick-look">
-      </model-viewer>
+    <div class="viewer-wrap">
+      <div class="viewerContainer">
+        <babylon id="viewerID">
+          <vr></vr>
+        </babylon>
+      </div>
 
-      <div class="model-info">
-        <h3>武東星</h3>
-        <button class="btn" onclick="enterVR(this)">Enter VR</button>
+      <div class="tips">
+        如果 VR 按鈕沒有反應，通常是因為目前裝置或瀏覽器不支援 WebXR。<br>
+        電腦上可以先用滑鼠旋轉模型；有支援的 VR 裝置再進入 VR 模式。
       </div>
     </div>
+  </main>
 
-  </div>
-</div>
-
-<footer>
-  © 2026 SayMyName VR
-</footer>
-
-<script>
-function enterVR(btn){
-  const viewer = btn.closest('.model-card').querySelector('model-viewer');
-
-  if (viewer.canActivateAR) {
-    viewer.activateAR();
-  } else {
-    alert("你的裝置不支援 VR / AR");
-  }
-}
-</script>
-
+  <footer>
+    © 2026 SayMyName VR
+  </footer>
 </body>
 </html>
